@@ -26,4 +26,8 @@
 		<EmbeddedResource Include="wwwroot\**\*" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Content Remove="wwwroot\js\jquery-3.7.0.min.js" />
+	</ItemGroup>
+
 </Project>
