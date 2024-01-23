@@ -51,7 +51,7 @@ SimpleComponents will update the bound content variable on change in the editor.
                     Context="Context"
                     Events="Events"
                     MinDate="DateTime.Now"
-                    ShowedDate="DateTime.Now"
+                    ShowedDate="new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1)"
                     HighLightToday="true"
                     StartDayOfWeek="DayOfWeek.Monday">
 </SimpleComponents.Calendar> 
