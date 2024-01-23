@@ -41,7 +41,7 @@ else
             <div class="event-container">
                 @foreach (var item in ShowingEvents.Where(x => GetDatesByRow(row).Contains(x.StartDate)))
                 {
-                    @if (item.Id != 0)
+                    @if (item.Id != -1)
                     {
                         <div class="position-absolute fw-bold text-start mb-1 rounded px-1 calendar-event"
                              data-order="@item.Order"

@@ -166,7 +166,7 @@ namespace SimpleComponents
             await jsInterop.ResizeCalendarEvents();
         }
 
-        async Task HandleNextPreviousBtnClick(int month)
+        private async Task HandleNextPreviousBtnClick(int month)
         {
             ShowedDate = ShowedDate.AddMonths(month);
             InitCalendar();
@@ -177,7 +177,7 @@ namespace SimpleComponents
         /// Init calendar grid UI
         /// Handle dates will be displayed on the grid
         /// </summary>
-        void InitCalendar()
+        private void InitCalendar()
         {
             ShowingDate = new();
 
@@ -250,7 +250,7 @@ namespace SimpleComponents
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        bool IsStartDateAndEndDateStaySameRow(CalendarEvent<T> item)
+        private bool IsStartDateAndEndDateStaySameRow(CalendarEvent<T> item)
         {
             var startDate = ShowingDate.FirstOrDefault(x => DateTime.Compare(x.Key.Date, item.StartDate.Date) == 0);
             var endDate = ShowingDate.FirstOrDefault(x => DateTime.Compare(x.Key.Date, item.EndDate.Date) == 0);
@@ -271,7 +271,7 @@ namespace SimpleComponents
         /// </summary>
         /// <param name="dateTime"></param>
         /// <returns></returns>
-        DateTime FirstDayOfMonth(DateTime dateTime)
+        private DateTime FirstDayOfMonth(DateTime dateTime)
         {
             return new DateTime(dateTime.Year, dateTime.Month, 1);
         }
@@ -281,7 +281,7 @@ namespace SimpleComponents
         /// </summary>
         /// <param name="dateTime"></param>
         /// <returns></returns>
-        DateTime LastDayOfMonth(DateTime dateTime)
+        private DateTime LastDayOfMonth(DateTime dateTime)
         {
             return new DateTime(dateTime.Year, dateTime.Month, DateTime.DaysInMonth(dateTime.Year, dateTime.Month));
         }
@@ -291,7 +291,7 @@ namespace SimpleComponents
         /// </summary>
         /// <param name="row"></param>
         /// <returns></returns>
-        DateTime FirstDateOfRow(int row)
+        private DateTime FirstDateOfRow(int row)
         {
             return ShowingDate.Where(x => x.Value == row).OrderBy(x => x.Key).First().Key;
         }
@@ -301,7 +301,7 @@ namespace SimpleComponents
         /// </summary>
         /// <param name="row"></param>
         /// <returns></returns>
-        DateTime LastDateOfRow(int row)
+        private DateTime LastDateOfRow(int row)
         {
             return ShowingDate.Where(x => x.Value == row).OrderByDescending(x => x.Key).First().Key;
         }
@@ -309,7 +309,7 @@ namespace SimpleComponents
         /// <summary>
         /// Shrink events after Events parameter set
         /// </summary>
-        void HandleShrinkEvents()
+        private void HandleShrinkEvents()
         {
             try
             {
@@ -436,12 +436,12 @@ namespace SimpleComponents
             catch { }
         }
 
-        List<DateTime> GetDatesByRow(int row)
+        private List<DateTime> GetDatesByRow(int row)
         {
             return ShowingDate.Where(x => x.Value == row).Select(x => x.Key).ToList();
         }
 
-        async Task HandleDayClick(DateTime date)
+        private async Task HandleDayClick(DateTime date)
         {
             if (!ShowCreateBtn)
             {
@@ -488,7 +488,7 @@ namespace SimpleComponents
             }
         }
 
-        async Task HandleEventClick(CalendarEvent<T> e)
+        private async Task HandleEventClick(CalendarEvent<T> e)
         {
             if (OnEventClick.HasDelegate)
             {
@@ -496,7 +496,7 @@ namespace SimpleComponents
             }
         }
 
-        void HandleShowCreateBtn()
+        private void HandleShowCreateBtn()
         {
             var eventsDate = ShowingEvents.Select(x => new { StartDate = x.StartDate.Date, EndDate = x.EndDate.Date });
             var emptyDate = ShowingDate.Where(x => !eventsDate.Any(y => DateTime.Compare(x.Key.Date, y.StartDate) >= 0
@@ -506,7 +506,7 @@ namespace SimpleComponents
             {
                 CalendarEvent<T> emptyEvent = new()
                 {
-                    Id = 0,
+                    Id = -1,
                     BackGroundColor = "#01D1FF",
                     Color = "white",
                     Duration = 1,
