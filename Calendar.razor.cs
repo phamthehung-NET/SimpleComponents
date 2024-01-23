@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SimpleComponents.Calendar
+namespace SimpleComponents
 {
     public partial class Calendar<T>
     {
