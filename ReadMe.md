@@ -25,16 +25,17 @@ If you already imported bootstrap v5.1 for your project, you can pass through th
 
 
 Then add a reference to the Calendar JavaScript file at the bottom of the respective page after the reference to the Blazor file.
+If you already imported bootstrap v5.1 for your project, you can pass through this step
 #### Body Inclusions
 ```html
-<script src="./_content/SimpleComponents/js/bootstrap.min.js"></script>
+<script src="./_content/SimpleComponents/js/bootstrap.bundle.js"></script>
 ```
 
 ##### Example: (body)
 ```html
     ....
     <script src="_framework/blazor.webassembly.js"></script>
-    <script src="./_content/SimpleComponents/js/bootstrap.min.js"></script>
+    <script src="./_content/SimpleComponents/js/bootstrap.bundle.js"></script>
 </body>
 ```
 
