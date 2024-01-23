@@ -1,6 +1,6 @@
 using Microsoft.JSInterop;
 
-namespace SimpleComponents
+namespace SimpleComponents.Calendar
 {
     // This class provides an example of how JavaScript functionality can be wrapped
     // in a .NET class for easy consumption. The associated JavaScript module is
@@ -25,7 +25,7 @@ namespace SimpleComponents
 
         public async Task ResizeCalendarEvents()
         {
-            if(moduleTask == null)
+            if (moduleTask == null)
             {
                 return;
             }

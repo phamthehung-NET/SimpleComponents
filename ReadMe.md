@@ -1,7 +1,8 @@
 # SimpleComponents
 [Simple Components](https://github.com/phamthehung-NET/SimpleComponents) is a collection of easy to use and implement [Razor components class libraries](https://learn.microsoft.com/en-us/aspnet/core/blazor/components/class-libraries?view=aspnetcore-7.0&tabs=visual-studio)
 
-is a Super simple Calendar grid
+This project includes components:
+* Calendar
 
 ### Setup
 
