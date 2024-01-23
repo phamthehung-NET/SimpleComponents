@@ -1,0 +1,85 @@
+﻿@typeparam T
+@inject IJSRuntime Js
+
+@if (TitleTemplate != null)
+{
+    @TitleTemplate
+}
+else
+{
+    <div class="text-center" style="font-size: 2rem">@ShowedDate.ToString("MMMM yyyy", new CultureInfo("en-US"))</div>
+    <div class="d-flex justify-content-between mb-2">
+        <div class="btn-change-month btn border-0 bg-secondary bg-opacity-25 rounded-circle" @onclick="async () => await HandleNextPreviousBtnClick(-1)"><i class="pth-icon-left"></i></div>
+        <div class="btn-change-month btn border-0 bg-secondary bg-opacity-25 rounded-circle" @onclick="async () => await HandleNextPreviousBtnClick(1)"><i class="pth-icon-right"></i></div>
+    </div>
+}
+
+<div class="pth-calendar d-flex flex-column border">
+    <div class="pth-week header d-flex justify-content-around border-bottom">
+        @foreach (var day in DaysOfWeek)
+        {
+            <div class="day-of-month text-center" style="flex: 1">
+                <span>@(CultureInfo.CurrentCulture.DateTimeFormat.GetDayName(day))</span>
+            </div>
+        }
+    </div>
+    @for (int row = 1; row <= ShowingDate.MaxBy(x => x.Value).Value; row++)
+    {
+        <div class="pth-week position-relative">
+            <div class="pth-days d-flex justify-content-around border-bottom" style="--maxEventOrder: @(ShowingEvents.MaxBy(x => x.Order) != null ? ShowingEvents.MaxBy(x => x.Order).Order : 1)">
+                @foreach (var date in GetDatesByRow(row))
+                {
+                    <div class="@(date.Month != ShowedDate.Month ? "bg-light text-black-50" : "") day"
+                         style="flex: 1"
+                         @onclick="@(!ShowCreateBtn ? () => HandleDayClick(date) : null)" role="@((OnEventDayClick.HasDelegate || OnEmptyDayClick.HasDelegate) && (!MinDate.HasValue || date.Month != ShowedDate.Month || date.Date >= MinDate.Value.Date) && !ShowCreateBtn ? "button" : "")">
+                        <div class="calendar-date text-end me-2 mt-2">
+                            <span class="@(HighLightToday && DateTime.Compare(date.Date, DateTime.Now.Date) == 0 ? "today" : "")">@date.Day</span>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="event-container">
+                @foreach (var item in ShowingEvents.Where(x => GetDatesByRow(row).Contains(x.StartDate)))
+                {
+                    @if (item.Id != 0)
+                    {
+                        <div class="position-absolute fw-bold text-start mb-1 rounded px-1 calendar-event"
+                             data-order="@item.Order"
+                             data-row="@row"
+                             style="background-color: @item.BackGroundColor; color: @(item.StartDate.Month == ShowedDate.Month ? item.Color + " !important" : ""); @(item.IsStartEvent ? "border-left: 3px solid #0ab8ca" : "border-left: 3px solid transparent"); --location: @(GetDatesByRow(row).IndexOf(item.StartDate)); --duration: @item.Duration; --order: @item.Order; --orderHeight: @(item.Order > 1 ? "4rem" : "4.5rem");"
+                             @onclick="() => HandleEventClick(item)" role="@(OnEventClick.HasDelegate ? "button" : "")">
+                            @if (EventContentTemplate != null)
+                            {
+                                @EventContentTemplate(item.Data)
+                            }
+                            else
+                            {
+                                @((MarkupString)item.Content)
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        if (!MinDate.HasValue || DateTime.Compare(item.StartDate, MinDate.Value.Date) >= 0)
+                        {
+                            <div class="position-absolute fw-bold mb-1 rounded px-1 create-button text-center"
+                                 data-order="@item.Order"
+                                 data-row="@row"
+                                 style="background-color: transparent; color: @(item.Color + " !important"); --location: @(GetDatesByRow(row).IndexOf(item.StartDate)); --duration: @item.Duration; --order: @item.Order;"
+                                 @onclick="() => HandleDayClick(item.StartDate)" role="@(OnEmptyDayClick.HasDelegate ? "button" : "")">
+                                @if (CreateBtnTemplate != null)
+                                {
+                                    @CreateBtnTemplate
+                                }
+                                else
+                                {
+                                    <i class="pth-icon-plus"></i>
+                                }
+                            </div>
+                        }
+                    }
+                }
+            </div>
+        </div>
+    }
+</div>
