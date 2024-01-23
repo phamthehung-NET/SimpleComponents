@@ -1,5 +1,5 @@
 # SimpleComponents
-[Simple Components](https://github.com/SimpleComponents) is a collection of easy to use and implement [Razor components class libraries](https://learn.microsoft.com/en-us/aspnet/core/blazor/components/class-libraries?view=aspnetcore-7.0&tabs=visual-studio)
+[Simple Components](https://github.com/phamthehung-NET/SimpleComponents) is a collection of easy to use and implement [Razor components class libraries](https://learn.microsoft.com/en-us/aspnet/core/blazor/components/class-libraries?view=aspnetcore-7.0&tabs=visual-studio)
 
 is a Super simple Calendar grid
 
@@ -7,6 +7,7 @@ is a Super simple Calendar grid
 
 Add reference to style sheet & javascript references
 Add the following line to the head tag of your _Host.cshtml (Blazor Server).
+If you already imported bootstrap v5.1 for your project, you can pass through this step
 
 #### Head Inclusions
 ```html
@@ -59,4 +60,4 @@ SimpleComponents will update the bound content variable on change in the editor.
 ```
 
 ## ToDo
-Add additional configuration and add drag calendar evetns handling.
+Add additional configuration and add drag calendar events handling. Will be updated in v0.0.2
