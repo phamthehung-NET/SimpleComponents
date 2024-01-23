@@ -8,7 +8,7 @@ This project includes components:
 
 Add reference to style sheet & javascript references
 Add the following line to the head tag of your _Host.cshtml (Blazor Server).
-If you already imported bootstrap v5.1 for your project, you can pass through this step
+If you already imported bootstrap v5.1 for your project, you can skip this step
 
 #### Head Inclusions
 ```html
@@ -25,7 +25,7 @@ If you already imported bootstrap v5.1 for your project, you can pass through th
 
 
 Then add a reference to the Calendar JavaScript file at the bottom of the respective page after the reference to the Blazor file.
-If you already imported bootstrap v5.1 for your project, you can pass through this step
+If you already imported bootstrap v5.1 for your project, you can skip this step
 #### Body Inclusions
 ```html
 <script src="./_content/SimpleComponents/js/bootstrap.bundle.js"></script>
