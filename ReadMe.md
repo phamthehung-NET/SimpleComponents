@@ -45,7 +45,7 @@ If you have already imported bootstrap v5.1 and jquery v3.7 into your project, y
 ```
 
 ### Usage
-SimpleComponents will update the bound content variable on change in the editor.
+SimpleComponents.Calendar will update the bound Events variable on change on the grid.
 
 ``` html
 @page "/"
