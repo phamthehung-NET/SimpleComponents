@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
+using Microsoft.JSInterop;
 using SimpleComponents.Models;
 using System;
 using System.Collections.Generic;
@@ -16,6 +18,7 @@ namespace SimpleComponents
         /// Events of calendar
         /// </summary>
         [Parameter]
+        [EditorRequired]
         public List<CalendarEvent<T>> Events { get; set; } = new();
 
         /// <summary>
@@ -85,13 +88,6 @@ namespace SimpleComponents
         public RenderFragment CreateBtnTemplate { get; set; }
 
         /// <summary>
-        /// Start day of week.
-        /// Only Monday or Sunday
-        /// </summary>
-        [Parameter]
-        public DayOfWeek StartDayOfWeek { get; set; } = DayOfWeek.Sunday;
-
-        /// <summary>
         /// Template html Title on the top of calendar.
         /// Including change month button group
         /// </summary>
@@ -99,9 +95,23 @@ namespace SimpleComponents
         public RenderFragment TitleTemplate { get; set; }
 
         /// <summary>
-        /// List day of the week
+        /// Start day of pth-week.
+        /// Only Monday or Sunday
         /// </summary>
-        private List<DayOfWeek> DaysOfWeek = new()
+        [Parameter]
+        public DayOfWeek StartDayOfWeek { get; set; } = DayOfWeek.Sunday;
+
+        /// <summary>
+        /// Method to handle user moves the mouse from start date to end date.
+        /// Return date range with start date and and date
+        /// </summary>
+        [Parameter]
+        public EventCallback<DateRange> OnSelectDateRange { get; set; }
+
+        /// <summary>
+        /// List day of the pth-week
+        /// </summary>
+        List<DayOfWeek> DaysOfWeek = new()
         {
             DayOfWeek.Monday,
             DayOfWeek.Tuesday,
@@ -115,12 +125,17 @@ namespace SimpleComponents
         /// <summary>
         /// Date time of month after split to rows and show on calendar
         /// </summary>
-        private Dictionary<DateTime, int> ShowingDate = new();
+        Dictionary<DateTime, int> ShowingDate = new();
 
         /// <summary>
         /// List event show on the calendar grid after handled
         /// </summary>
-        private List<CalendarEvent<T>> ShowingEvents = new();
+        List<CalendarEvent<T>> ShowingEvents = new();
+
+        /// <summary>
+        /// Selected range when user drag and drop
+        /// </summary>
+        DateRange SelectedRange = new();
 
         protected override void OnInitialized()
         {
@@ -158,7 +173,7 @@ namespace SimpleComponents
 
         protected override void OnParametersSet()
         {
-            HandleShrinkEvents();
+            HandleShrinkEvents(Events);
         }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -309,13 +324,13 @@ namespace SimpleComponents
         /// <summary>
         /// Shrink events after Events parameter set
         /// </summary>
-        private void HandleShrinkEvents()
+        private void HandleShrinkEvents(List<CalendarEvent<T>> events)
         {
             try
             {
                 List<CalendarEvent<T>> calendars = new();
 
-                foreach (var item in Events.OrderBy(x => x.StartDate))
+                foreach (var item in events.OrderBy(x => x.StartDate))
                 {
                     if (!IsStartDateAndEndDateStaySameRow(item))
                     {
@@ -344,7 +359,7 @@ namespace SimpleComponents
                                     var prevEvents = calendars.Where(x => DateTime.Compare(x.StartDate.Date, calendarEvent.StartDate.Date) <= 0
                                         && DateTime.Compare(x.EndDate, calendarEvent.StartDate.Date) >= 0);
 
-                                    if (prevEvents.Any())
+                                    if (prevEvents.Count() > 0)
                                     {
                                         calendarEvent.Order = prevEvents.MaxBy(x => x.Order).Order + 1;
                                     }
@@ -372,7 +387,7 @@ namespace SimpleComponents
                                     var prevEvents = calendars.Where(x => DateTime.Compare(x.StartDate.Date, calendarEvent.StartDate.Date) <= 0
                                         && DateTime.Compare(x.EndDate, calendarEvent.StartDate.Date) >= 0);
 
-                                    if (prevEvents.Any())
+                                    if (prevEvents.Count() > 0)
                                     {
                                         calendarEvent.Order = prevEvents.MaxBy(x => x.Order).Order + 1;
                                     }
@@ -401,7 +416,7 @@ namespace SimpleComponents
                                 var prevEvents = calendars.Where(x => DateTime.Compare(x.StartDate.Date, calendarEvent.StartDate.Date) <= 0
                                     && DateTime.Compare(x.EndDate, calendarEvent.StartDate.Date) >= 0);
 
-                                if (prevEvents.Any())
+                                if (prevEvents.Count() > 0)
                                 {
                                     calendarEvent.Order = prevEvents.MaxBy(x => x.Order).Order + 1;
                                 }
@@ -417,7 +432,7 @@ namespace SimpleComponents
                         var prevEvents = calendars.Where(x => DateTime.Compare(x.StartDate.Date, item.StartDate.Date) <= 0
                             && DateTime.Compare(x.EndDate, item.StartDate.Date) >= 0);
 
-                        if (prevEvents.Any())
+                        if (prevEvents.Count() > 0)
                         {
                             item.Order = prevEvents.MaxBy(x => x.Order).Order + 1;
                         }
@@ -436,11 +451,16 @@ namespace SimpleComponents
             catch { }
         }
 
-        private List<DateTime> GetDatesByRow(int row)
+        List<DateTime> GetDatesByRow(int row)
         {
             return ShowingDate.Where(x => x.Value == row).Select(x => x.Key).ToList();
         }
 
+        /// <summary>
+        /// Handle a day on the grid clicked
+        /// </summary>
+        /// <param name="date"></param>
+        /// <returns></returns>
         private async Task HandleDayClick(DateTime date)
         {
             if (!ShowCreateBtn)
@@ -488,6 +508,11 @@ namespace SimpleComponents
             }
         }
 
+        /// <summary>
+        /// Handle a calendar event is clicked
+        /// </summary>
+        /// <param name="e"></param>
+        /// <returns></returns>
         private async Task HandleEventClick(CalendarEvent<T> e)
         {
             if (OnEventClick.HasDelegate)
@@ -496,6 +521,9 @@ namespace SimpleComponents
             }
         }
 
+        /// <summary>
+        /// Handle show the create button to the empty day
+        /// </summary>
         private void HandleShowCreateBtn()
         {
             var eventsDate = ShowingEvents.Select(x => new { StartDate = x.StartDate.Date, EndDate = x.EndDate.Date });
@@ -519,6 +547,46 @@ namespace SimpleComponents
             }
 
             ShowingEvents = ShowingEvents.OrderBy(x => x.StartDate).ToList();
+        }
+
+        /// <summary>
+        /// Handle when user drag a day on the grid.
+        /// The dragged day is start date
+        /// </summary>
+        /// <param name="e"></param>
+        /// <param name="startDate"></param>
+        private void OnDragDay(DragEventArgs e, DateTime startDate)
+        {
+            if (OnSelectDateRange.HasDelegate)
+            {
+                SelectedRange.StartDate = startDate;
+            }
+        }
+
+        /// <summary>
+        /// Handle when user drop the day to another day.
+        /// Get the end date
+        /// </summary>
+        /// <param name="e"></param>
+        /// <param name="endDate"></param>
+        /// <returns></returns>
+        private async Task OnDropDay(DragEventArgs e, DateTime endDate)
+        {
+            if (OnSelectDateRange.HasDelegate)
+            {
+                if (DateTime.Compare(SelectedRange.StartDate.Date, endDate.Date) > 0)
+                {
+                    SelectedRange.EndDate = SelectedRange.StartDate;
+                    SelectedRange.StartDate = endDate;
+                }
+                else
+                {
+                    SelectedRange.EndDate = endDate;
+                }
+
+                await OnSelectDateRange.InvokeAsync(SelectedRange);
+                SelectedRange = new();
+            }
         }
     }
 }

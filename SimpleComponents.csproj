@@ -5,7 +5,7 @@
 		<Nullable>disable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<PackageVersion>0.0.1.1</PackageVersion>
+		<PackageVersion>0.0.2</PackageVersion>
 		<Title>Calendar</Title>
 		<PackageTags>Blazor, BlazorCalendar, Calendar, Scheduler, CalendarGrid</PackageTags>
 		<PackageProjectUrl>https://github.com/phamthehung-NET/SimpleComponents/</PackageProjectUrl>

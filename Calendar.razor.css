@@ -5,20 +5,11 @@
     background-image: url('background.png');
 }
 
-.event-container::-webkit-scrollbar {
-    display: none;
-}
-
-.event-container {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-}
-
 .pth-week > .day-of-month:not(:last-of-type) {
     border-right: 1px solid #DEE2E6
 }
 
-.pth-week > .pth-days > .day:not(:last-of-type) {
+.pth-week > .pth-days > .pth-day:not(:last-of-type) {
     border-right: 1px solid #DEE2E6
 }
 
@@ -44,7 +35,7 @@
     border: 1px solid transparent;
     border-radius: 1rem;
     background: #ffbaba;
-    padding: 6px;
+    padding: 4px 6px;
     color: white;
 }
 

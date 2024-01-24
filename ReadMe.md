@@ -67,4 +67,4 @@ SimpleComponents.Calendar will update the bound Events variable on change on the
 ```
 
 ## ToDo
-Add additional configuration and add drag calendar events handling. Will be updated in v0.0.2
+Add additional configuration.

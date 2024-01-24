@@ -29,9 +29,13 @@ else
             <div class="pth-days d-flex justify-content-around border-bottom" style="--maxEventOrder: @(ShowingEvents.MaxBy(x => x.Order) != null ? ShowingEvents.MaxBy(x => x.Order).Order : 1)">
                 @foreach (var date in GetDatesByRow(row))
                 {
-                    <div class="@(date.Month != ShowedDate.Month ? "bg-light text-black-50" : "") day"
+                    <div class="pth-day@(date.Month != ShowedDate.Month ? " bg-light text-black-50" : "") user-select-none"
                          style="flex: 1"
-                         @onclick="@(!ShowCreateBtn ? () => HandleDayClick(date) : null)" role="@((OnEventDayClick.HasDelegate || OnEmptyDayClick.HasDelegate) && (!MinDate.HasValue || date.Month != ShowedDate.Month || date.Date >= MinDate.Value.Date) && !ShowCreateBtn ? "button" : "")">
+                         @onclick="@(!ShowCreateBtn ? (e) => HandleDayClick(date) : null)" role="@((OnEventDayClick.HasDelegate || OnEmptyDayClick.HasDelegate) && (!MinDate.HasValue || date.Month != ShowedDate.Month || date.Date >= MinDate.Value.Date) && !ShowCreateBtn ? "button" : "")"
+                         ondragover="event.preventDefault();"
+                         @ondrag="@((e) => OnDragDay(e, date))"
+                         @ondrop="@(async (e) => await OnDropDay(e, date))"
+                         draggable="@OnSelectDateRange.HasDelegate">
                         <div class="calendar-date text-end me-2 mt-2">
                             <span class="@(HighLightToday && DateTime.Compare(date.Date, DateTime.Now.Date) == 0 ? "today" : "")">@date.Day</span>
                         </div>
