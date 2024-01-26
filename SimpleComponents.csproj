@@ -1,16 +1,17 @@
-<Project Sdk="Microsoft.NET.Sdk.Razor">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
 	<PropertyGroup>
-		<TargetFramework>net7.0</TargetFramework>
+		<TargetFrameworks>net7.0;net8.0</TargetFrameworks>
 		<Nullable>disable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<PackageVersion>0.0.2</PackageVersion>
+		<PackageVersion>0.0.2.1</PackageVersion>
 		<Title>Calendar</Title>
 		<PackageTags>Blazor, BlazorCalendar, Calendar, Scheduler, CalendarGrid</PackageTags>
 		<PackageProjectUrl>https://github.com/phamthehung-NET/SimpleComponents/</PackageProjectUrl>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<Authors>hung.pt</Authors>
+		<Description>A Calendar grid to show and interact with events</Description>
 	</PropertyGroup>
 
 
@@ -19,7 +20,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.13" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.15" />
 	</ItemGroup>
 
 	<ItemGroup>
