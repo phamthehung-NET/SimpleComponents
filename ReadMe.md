@@ -68,4 +68,5 @@ SimpleComponents.Calendar will update the bound Events variable on change on the
 
 ## ToDo
 Add additional configuration.
+
 Gives me some ideas about essential components will be developed in the future
