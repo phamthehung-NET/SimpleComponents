@@ -50,7 +50,7 @@ else
                         <div class="position-absolute fw-bold text-start mb-1 rounded px-1 calendar-event"
                              data-order="@item.Order"
                              data-row="@row"
-                             style="background-color: @item.BackGroundColor; color: @(item.StartDate.Month == ShowedDate.Month ? item.Color + " !important" : ""); @(item.IsStartEvent ? "border-left: 3px solid #0ab8ca" : "border-left: 3px solid transparent"); --location: @(GetDatesByRow(row).IndexOf(item.StartDate)); --duration: @item.Duration; --order: @item.Order; --orderHeight: @(item.Order > 1 ? "4rem" : "4.5rem");"
+                             style="background-color: @item.BackGroundColor; color: @(item.StartDate.Month == ShowedDate.Month ? item.Color + " !important" : ""); @(item.IsStartEvent ? "border-left: 3px solid #0ab8ca" : "border-left: 3px solid transparent"); --location: @(GetDatesByRow(row).IndexOf(item.StartDate)); --duration: @item.Duration; --order: @item.Order;"
                              @onclick="() => HandleEventClick(item)" role="@(OnEventClick.HasDelegate ? "button" : "")">
                             @if (EventContentTemplate != null)
                             {

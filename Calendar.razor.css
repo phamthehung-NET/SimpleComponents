@@ -16,7 +16,7 @@
 .calendar-event {
     margin-left: 5px;
     width: calc(var(--duration) / 7 * 100% - 10px);
-    top: max(10px, calc(var(--order) * var(--orderHeight) - 30px));
+    top: max(10px, calc(var(--order) * 4.5rem - 30px));
     left: calc(var(--location) / 7 * 100%);
 }
 
