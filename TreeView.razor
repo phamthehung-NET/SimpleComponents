@@ -1,0 +1,32 @@
+﻿@typeparam T
+
+<ul class="tree">
+    @foreach(var item in GetItemsByLevel(1))
+    {
+        <li class="level-1 tree-item">
+            <div @onclick="OnItemClick.HasDelegate ? async () => await OnItemClick.InvokeAsync(item) : null"
+                  role="@(OnItemClick.HasDelegate ? "button" : null)"
+                  style="width: fit-content">
+                @if (ContentTemplate != null)
+                {
+                    @ContentTemplate(item.Data)
+                }
+                else
+                {
+                    <div class="sticky tree-item-content"
+                         style="background-color: @item.BackGroundColor; color: @item.Color">
+                        @((MarkupString)item.Content)
+                    </div>
+                }
+            </div>
+            @if (GetItemsAtNextLevel(item.Id, 1).Any())
+            {
+                <CascadingValue Value="@OnItemClick">
+                    <CascadingValue Value="@ContentTemplate">
+                        <TreeViewItem T="T" ParentId="item.Id" TreeItems="TreeItems.Where(x => x.Level > 1).ToList()" />
+                    </CascadingValue>
+                </CascadingValue>
+            }
+        </li>
+    }
+</ul>

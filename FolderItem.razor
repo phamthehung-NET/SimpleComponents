@@ -1,0 +1,35 @@
+﻿@typeparam T
+
+@foreach (var item in ShowingData)
+{
+    <div class="folder" style="--level: @item.Level"
+        @onclick="async () => await OnFolderClicked(item)" role="button"
+         ondragover="event.preventDefault();"
+         @ondrag="@((e) => OnFolderDragged(e, item))"
+         @ondrop="@(async (e) => await OnDropFolder(e, item))"
+         draggable="@(OnDragAndDropFolder.HasDelegate ? "true" : "false")">
+        @if (FolderTemplate != null)
+        {
+            @FolderTemplate(item.Data)
+        }
+        else
+        {
+            @if (IconType != FolderIconType.None)
+            {
+                <i class="me-2@(IconType == FolderIconType.Folder ? item.IsExpanded ? GetFoldersAtNextLevel(item.Id, item.Level).Any() ? " pth-folder-icon" : " pth-empty-folder-icon" : " pth-closed-folder-icon" : item.IsExpanded ? " pth-icon-down" : " pth-icon-right")"></i>
+            }
+            <span>@((MarkupString)item.Content)</span>
+        }
+    </div>
+    @if (item.IsExpanded)
+    {
+        @if (GetFoldersAtNextLevel(item.Id, CurrentLevel).Any())
+        {
+            <FolderItem T="T" ParentId="item.Id" Folders="Folders.Where(x => x.Level > CurrentLevel).ToList()" OnLowerLevelDrag="OnLowerLevelDrag" />
+        }
+        else
+        {
+            <div class="folder-empty" style="--level: @(item.Level + 1)">(empty)</div>
+        }
+    }
+}

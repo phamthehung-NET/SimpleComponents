@@ -137,6 +137,9 @@ namespace SimpleComponents
         /// </summary>
         DateRange SelectedRange = new();
 
+        /// <summary>
+        /// 
+        /// </summary>
         protected override void OnInitialized()
         {
             if (StartDayOfWeek == DayOfWeek.Monday)
@@ -171,16 +174,27 @@ namespace SimpleComponents
             InitCalendar();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         protected override void OnParametersSet()
         {
             HandleShrinkEvents(Events);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="firstRender"></param>
+        /// <returns></returns>
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             await jsInterop.ResizeCalendarEvents();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="month"></param>
+        /// <returns></returns>
         private async Task HandleNextPreviousBtnClick(int month)
         {
             ShowedDate = ShowedDate.AddMonths(month);
@@ -572,7 +586,7 @@ namespace SimpleComponents
         /// <returns></returns>
         private async Task OnDropDay(DragEventArgs e, DateTime endDate)
         {
-            if (OnSelectDateRange.HasDelegate)
+            if (OnSelectDateRange.HasDelegate && SelectedRange.StartDate.Date != DateTime.MinValue)
             {
                 if (DateTime.Compare(SelectedRange.StartDate.Date, endDate.Date) > 0)
                 {

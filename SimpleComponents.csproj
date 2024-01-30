@@ -5,13 +5,13 @@
 		<Nullable>disable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<PackageVersion>0.0.2.1</PackageVersion>
+		<PackageVersion>0.0.4</PackageVersion>
 		<Title>Calendar</Title>
-		<PackageTags>Blazor, BlazorCalendar, Calendar, Scheduler, CalendarGrid</PackageTags>
+		<PackageTags>Blazor, BlazorCalendar, Calendar, Scheduler, CalendarGrid, TreeView, HorizontalSiteMap, Folders, FolderView</PackageTags>
 		<PackageProjectUrl>https://github.com/phamthehung-NET/SimpleComponents/</PackageProjectUrl>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<Authors>hung.pt</Authors>
-		<Description>A Calendar grid to show and interact with events</Description>
+		<Description>A package includes helpful Blazor components</Description>
 	</PropertyGroup>
 
 
@@ -20,6 +20,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Components" Version="7.0.15" />
 		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.15" />
 	</ItemGroup>
 
@@ -28,7 +29,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Content Remove="wwwroot\folderViewJsInterop.js" />
 	  <Content Remove="wwwroot\js\jquery-3.7.0.min.js" />
+	  <Content Remove="wwwroot\treeViewJsInterop.js" />
 	</ItemGroup>
 
 </Project>

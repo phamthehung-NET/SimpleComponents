@@ -35,7 +35,7 @@ else
                          ondragover="event.preventDefault();"
                          @ondrag="@((e) => OnDragDay(e, date))"
                          @ondrop="@(async (e) => await OnDropDay(e, date))"
-                         draggable="@OnSelectDateRange.HasDelegate">
+                         draggable="@(OnSelectDateRange.HasDelegate ? "true" : "false")">
                         <div class="calendar-date text-end me-2 mt-2">
                             <span class="@(HighLightToday && DateTime.Compare(date.Date, DateTime.Now.Date) == 0 ? "today" : "")">@date.Day</span>
                         </div>

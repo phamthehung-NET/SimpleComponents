@@ -1,16 +1,43 @@
-# Demo screenshot
-![Screenshot](./wwwroot/demo.png)
-
 # SimpleComponents
 [Simple Components](https://github.com/phamthehung-NET/SimpleComponents) is a collection of easy to use and implement [Razor components class libraries](https://learn.microsoft.com/en-us/aspnet/core/blazor/components/class-libraries?view=aspnetcore-7.0&tabs=visual-studio)
 
 This project includes components:
 * Calendar
+* TreeView
+* FolderView
+
+# Features
+### Calendar
+* Display events on the grid
+* Customize the event content
+* Provide handling method when click to event on calendar
+* Drag to select date range
+* Provide handling method when user click to a date on grid
+* Embedded data inside event
+### Tree view
+* Display a tree with item
+* Customize each tree item content
+* Provide handling method when click to item on tree
+* Embedded data inside item
+### Folder view
+* Showing folders as folder tree
+* Provide handling method when click to each folder
+* Provide handling method drag and drop to move the folders and their children on folder tree (drag other item to folder will trigger this method as well)
+* Embedded data inside folder
+
+# Demo screenshot
+### Calendar
+![Screenshot](./wwwroot/demo.png)
+### Horizontal Tree View
+![Screenshot](./wwwroot/treeview-demo.png)
+### Folder view
+![Screenshot](./wwwroot/folderview-demo.png)
 
 ### Setup
 
 Add reference to style sheet & javascript references
 Add the following line to the head tag of your _Host.cshtml (Blazor Server).
+(new update for .NET 8 - add import to App.razor file)
 If you have already imported bootstrap v5.1 for your project, you can skip this step
 
 #### Head Inclusions
@@ -45,6 +72,7 @@ If you have already imported bootstrap v5.1 and jquery v3.7 into your project, y
 ```
 
 ### Usage
+#### Calendar
 SimpleComponents.Calendar will update the bound Events variable on change on the grid.
 
 ``` html
@@ -66,7 +94,39 @@ SimpleComponents.Calendar will update the bound Events variable on change on the
 }
 ```
 
+#### FolderView
+SimpleComponents.FolderView will send the folder object data when you click to each folder on the tree view and collapse/expand folder at the same time
+
+``` html
+@page "/"
+
+<FolderView T="ObjectDTO" Folders="FolderItems" />
+
+<h2>@content</h2>
+
+@code{
+    private string content;
+}
+```
+
+#### TreeView
+SimpleComponents.TreeView will send the tree item data when you click to each item on the tree view
+
+``` html
+@page "/"
+
+<TreeView T="ObjectDTO" TreeItems="TreeItems" />
+
+<h2>@content</h2>
+
+@code{
+    private string content;
+}
+```
+
 ## ToDo
 Add additional configuration.
+
+Add new Components
 
 Gives me some ideas about essential components will be developed in the future

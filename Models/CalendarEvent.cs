@@ -2,6 +2,9 @@
 {
     public class CalendarEvent<T>
     {
+        /// <summary>
+        /// Id of event
+        /// </summary>
         public int Id { get; set; }
 
         /// <summary>
@@ -19,6 +22,9 @@
         /// </summary>
         public string Content { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public bool IsStartEvent { get; set; } = true;
         
         /// <summary>
@@ -26,6 +32,9 @@
         /// </summary>
         public double Duration { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public double Order { get; set; } = 1;
 
         /// <summary>
