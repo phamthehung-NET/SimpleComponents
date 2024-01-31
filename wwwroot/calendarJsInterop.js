@@ -46,11 +46,11 @@ export function resizeCalendarEvents() {
     $("div.pth-days.d-flex").css("height", `${Math.max.apply(null, heights)}px`);
 }
 
-function removeDragEventListener() {
+export function removeDragEventListener() {
     $("body").off("dragstart", ".pth-day")
 }
 
-function registDragEventListener() {
+export function registDragEventListener() {
     $(".pth-day").on("dragstart", function (e) {
         e.originalEvent.dataTransfer.setDragImage(new Image(), 0, 0);
     })

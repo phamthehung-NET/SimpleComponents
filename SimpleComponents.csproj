@@ -5,13 +5,14 @@
 		<Nullable>disable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<PackageVersion>0.0.4.1</PackageVersion>
+		<PackageVersion>0.0.4.3</PackageVersion>
 		<Title>Calendar</Title>
 		<PackageTags>Blazor, BlazorCalendar, Calendar, Scheduler, CalendarGrid, TreeView, HorizontalSiteMap, Folders, FolderView</PackageTags>
 		<PackageProjectUrl>https://github.com/phamthehung-NET/SimpleComponents/</PackageProjectUrl>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<Authors>hung.pt</Authors>
 		<Description>A package includes helpful Blazor components</Description>
+		<PackageReadmeFile>ReadMe.md</PackageReadmeFile>
 	</PropertyGroup>
 
 
@@ -26,12 +27,7 @@
 
 	<ItemGroup>
 		<EmbeddedResource Include="wwwroot\**\*" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Content Remove="wwwroot\folderViewJsInterop.js" />
-	  <Content Remove="wwwroot\js\jquery-3.7.0.min.js" />
-	  <Content Remove="wwwroot\treeViewJsInterop.js" />
+		<None Include=".\ReadMe.md" Pack="true" PackagePath="\"/>
 	</ItemGroup>
 
 </Project>
