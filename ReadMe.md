@@ -185,4 +185,4 @@ Add new Components
 
 Gives me some ideas about essential components that will be developed in the future
 
-Contact [me]phamthehung.1.2@outlook.com or [me in Gmail]phamthehung010221@gmail.com if you have any bugs or contribute ideas for new components
+Contact [me](phamthehung.1.2@outlook.com) or [me in Gmail](phamthehung010221@gmail.com) if you have any bugs or contribute ideas for new components
