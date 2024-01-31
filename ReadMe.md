@@ -78,34 +78,41 @@ SimpleComponents.Calendar will update the bound Events variable on change on the
 ``` html
 @page "/"
 
-<SimpleComponents.Calendar T="ObjectDTO"
+<SimpleComponents.Calendar T="TestData"
                     Context="Context"
                     Events="Events"
                     MinDate="DateTime.Now"
                     ShowedDate="new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1)"
                     HighLightToday="true"
+                    EventTodayBackGroundColor="#BAF3FF"
                     StartDayOfWeek="DayOfWeek.Monday">
+                    <EventContentTemplate>
+                        <div>• @Context.Name</div>
+                        <div>• @Context.StartDate.ToString("dd/MM") ~ @Context.EndDate.ToString("dd/MM")</div>
+                    </EventContentTemplate>
 </SimpleComponents.Calendar> 
 
 <h2>@content</h2>
 
 @code{
     private string content;
-}
-```
 
-#### FolderView
-SimpleComponents.FolderView will send the folder object data when you click to each folder on the tree view and collapse/expand folder at the same time
-
-``` html
-@page "/"
-
-<FolderView T="ObjectDTO" Folders="FolderItems" />
-
-<h2>@content</h2>
-
-@code{
-    private string content;
+    List<CalendarEvent<TestData>> Events = new()
+    {
+        new()
+        {
+            Id = 1,
+            Data = new()
+            {
+                Name = "Event 1",
+                StartDate = new DateTime(2024, 1, 3),
+                EndDate = new DateTime(2024, 1, 12),
+            },
+            StartDate = new DateTime(2024, 1, 3),
+            EndDate = new DateTime(2024, 1, 12),
+        },
+        ...
+    };
 }
 ```
 
@@ -115,12 +122,59 @@ SimpleComponents.TreeView will send the tree item data when you click to each it
 ``` html
 @page "/"
 
-<TreeView T="ObjectDTO" TreeItems="TreeItems" />
+<SimpleComponents.TreeView T="TestData" TreeItems="TreeItems" />
 
 <h2>@content</h2>
 
 @code{
     private string content;
+
+    List<TreeViewModel<TestData>> TreeItems = new()
+    {
+        new()
+        {
+            Id = 1,
+            Data = new()
+            {
+                Name = "Item level 1"
+            },
+            Level = 1,
+            ParentId = 0,
+            Content = "Item level 1",
+        },
+        ...
+    };
+}
+```
+
+#### FolderView
+SimpleComponents.FolderView will send the folder object data when you click to each folder on the tree view and collapse/expand folder at the same time
+
+``` html
+@page "/"
+
+<SimpleComponents.FolderView T="TestData" Folders="FolderItems" />
+
+<h2>@content</h2>
+
+@code{
+    private string content;
+
+    List<FolderModel<TestData>> FolderItems = new()
+    {
+        new()
+        {
+            Id = 1,
+            Data = new()
+            {
+                Name = "Folder level 1"
+            },
+            Level = 1,
+            ParentId = 0,
+            Content = "Folder level 1",
+        },
+        ...
+    };
 }
 ```
 
@@ -129,4 +183,6 @@ Add additional configuration.
 
 Add new Components
 
-Gives me some ideas about essential components will be developed in the future
+Gives me some ideas about essential components that will be developed in the future
+
+Contact [me]phamthehung.1.2@outlook.com or [me in Gmail]phamthehung010221@gmail.com if you have any bugs or contribute ideas for new components
