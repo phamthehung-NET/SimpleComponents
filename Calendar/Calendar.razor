@@ -17,17 +17,17 @@ else
 
 <div class="pth-calendar d-flex flex-column border">
     <div class="pth-week header d-flex justify-content-around border-bottom">
-        @foreach (var day in DaysOfWeek)
+        @foreach (var day in _daysOfWeek)
         {
             <div class="day-of-month text-center" style="flex: 1">
                 <span>@(CultureInfo.CurrentCulture.DateTimeFormat.GetDayName(day))</span>
             </div>
         }
     </div>
-    @for (int row = 1; row <= ShowingDate.MaxBy(x => x.Value).Value; row++)
+    @for (int row = 1; row <= _showingDate.MaxBy(x => x.Value).Value; row++)
     {
         <div class="pth-week position-relative">
-            <div class="pth-days d-flex justify-content-around border-bottom" style="--maxEventOrder: @(ShowingEvents.MaxBy(x => x.Order) != null ? ShowingEvents.MaxBy(x => x.Order).Order : 1)">
+            <div class="pth-days d-flex justify-content-around border-bottom" style="--maxEventOrder: @(_showingEvents.MaxBy(x => x.Order) != null ? _showingEvents.MaxBy(x => x.Order).Order : 1)">
                 @foreach (var date in GetDatesByRow(row))
                 {
                     <div class="pth-day@(date.Month != ShowedDate.Month ? " bg-light text-black-50" : "") user-select-none"
@@ -44,14 +44,14 @@ else
                 }
             </div>
             <div class="event-container">
-                @foreach (var item in ShowingEvents.Where(x => GetDatesByRow(row).Contains(x.StartDate)))
+                @foreach (var item in _showingEvents.Where(x => GetDatesByRow(row).Contains(x.StartDate.Date)))
                 {
                     @if (item.Id != -1)
                     {
                         <div class="position-absolute fw-bold text-start mb-1 rounded px-1 calendar-event"
                              data-order="@item.Order"
                              data-row="@row"
-                             style="background-color: @item.BackGroundColor; color: @(item.StartDate.Month == ShowedDate.Month ? item.Color + " !important" : ""); @(item.IsStartEvent ? "border-left: 3px solid #0ab8ca" : "border-left: 3px solid transparent"); --location: @(GetDatesByRow(row).IndexOf(item.StartDate)); --duration: @item.Duration; --order: @item.Order;"
+                             style="background-color: @item.BackGroundColor; color: @(item.StartDate.Month == ShowedDate.Month ? item.Color + " !important" : ""); @(item.IsStartEvent ? "border-left: 3px solid #0ab8ca" : "border-left: 3px solid transparent"); --location: @(GetDatesByRow(row).IndexOf(item.StartDate.Date)); --duration: @item.Duration; --order: @item.Order;"
                              @onclick="() => HandleEventClick(item)" role="@(OnEventClick.HasDelegate ? "button" : "")">
                             @if (EventContentTemplate != null)
                             {
@@ -70,16 +70,9 @@ else
                             <div class="position-absolute fw-bold mb-1 rounded px-1 create-button text-center"
                                  data-order="@item.Order"
                                  data-row="@row"
-                                 style="background-color: transparent; color: @(item.Color + " !important"); --location: @(GetDatesByRow(row).IndexOf(item.StartDate)); --duration: @item.Duration; --order: @item.Order;"
+                                 style="background-color: transparent; color: @(item.Color + " !important"); --location: @(GetDatesByRow(row).IndexOf(item.StartDate.Date)); --duration: @item.Duration; --order: @item.Order;"
                                  @onclick="() => HandleDayClick(item.StartDate)" role="@(OnEmptyDayClick.HasDelegate ? "button" : "")">
-                                @if (CreateBtnTemplate != null)
-                                {
-                                    @CreateBtnTemplate
-                                }
-                                else
-                                {
-                                    <i class="pth-icon-plus"></i>
-                                }
+                                @CreateBtnTemplate
                             </div>
                         }
                     }

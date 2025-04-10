@@ -1,11 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
 	<PropertyGroup>
-		<TargetFrameworks>net7.0;net8.0</TargetFrameworks>
+		<TargetFrameworks>net7.0;net8.0;net9.0</TargetFrameworks>
 		<Nullable>disable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<PackageVersion>0.0.4.3</PackageVersion>
+		<PackageVersion>0.0.4.7</PackageVersion>
 		<Title>Calendar</Title>
 		<PackageTags>Blazor, BlazorCalendar, Calendar, Scheduler, CalendarGrid, TreeView, HorizontalSiteMap, Folders, FolderView</PackageTags>
 		<PackageProjectUrl>https://github.com/phamthehung-NET/SimpleComponents/</PackageProjectUrl>
@@ -27,7 +27,22 @@
 
 	<ItemGroup>
 		<EmbeddedResource Include="wwwroot\**\*" />
-		<None Include=".\ReadMe.md" Pack="true" PackagePath="\"/>
+		<None Include=".\ReadMe.md" Pack="true" PackagePath="\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Properties\Resources.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>Resources.resx</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Update="Properties\Resources.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
 	</ItemGroup>
 
 </Project>
