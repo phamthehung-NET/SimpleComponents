@@ -27,11 +27,11 @@ This project includes components:
 
 # Demo screenshot
 ### Calendar
-![Screenshot](https://github.com/phamthehung-NET/SimpleComponents/blob/master/wwwroot/demo.png)
+![Screenshot](https://raw.githubusercontent.com/phamthehung-NET/SimpleComponents/master/wwwroot/demo.png)
 ### Horizontal Tree View
-![Screenshot](https://github.com/phamthehung-NET/SimpleComponents/blob/master/wwwroot/treeview-demo.png)
+![Screenshot](https://raw.githubusercontent.com/phamthehung-NET/SimpleComponents/master/wwwroot/treeview-demo.png)
 ### Folder view
-![Screenshot](https://github.com/phamthehung-NET/SimpleComponents/blob/master/wwwroot/folderview-demo.png)
+![Screenshot](https://raw.githubusercontent.com/phamthehung-NET/SimpleComponents/master/wwwroot/folderview-demo.png)
 
 ### Setup
 
@@ -197,3 +197,4 @@ Contact <a href="mailto:phamthehung.1.2@outlook.com">me</a> or <a href="mailto:p
 * v0.0.4.3 Adding readme.md to Nuget
 * v0.0.4.7 Fixing showing events on calendar
 * v0.0.4.8 Fixing ReadMe.md
+* v0.0.4.9 Fixing ReadMe.md
