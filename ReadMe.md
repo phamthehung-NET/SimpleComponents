@@ -196,3 +196,4 @@ Contact <a href="mailto:phamthehung.1.2@outlook.com">me</a> or <a href="mailto:p
 * v0.0.4.2 Fixing failed to import Jquery
 * v0.0.4.3 Adding readme.md to Nuget
 * v0.0.4.7 Fixing showing events on calendar
+* v0.0.4.8 Fixing ReadMe.md
